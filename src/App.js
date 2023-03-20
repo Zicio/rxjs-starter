@@ -1,25 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+import {useEffect, useState} from "react";
+import {ajax} from "rxjs/ajax";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  const [data, setData] = useState(null);
+  useEffect( () => {
+    setData(() => {ajax.getJSON('https://api.github.com/search/repositories?q=rxjs').subscribe((value) => console.log(value));})
+  }, [])
+  return <div>{data}</div>
 }
 
 export default App;
